@@ -1,0 +1,30 @@
+name: 'educational-plan'
+
+services:
+  # инфраструктура
+  educational-plan-db:
+    container_name: educational-plan-db
+    image: postgres:17.4
+    restart: unless-stopped
+    networks:
+      - educational-plan
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+    ports:
+      - '5432:5432'
+    volumes:
+      - educational-plan-db-data:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+
+networks:
+  educational-plan:
+    name: 'educational-plan'
+    driver: bridge
+
+volumes:
+  educational-plan-db-data:
