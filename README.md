@@ -15,7 +15,7 @@
 
 - Язык программирования: Python 3.13
 - Фреймворк: FastAPI 0.115.11
-- ORM: SQLAlchemy 2.0
+- ORM: SQLAlchemy 2.0.39
 - БД: PostgreSQL 17.4
 - Мониторинг: Prometheus + Grafana
 - Контейнеризация: Docker + Docker Compose
