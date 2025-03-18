@@ -45,7 +45,7 @@
 |------------------------|------------|------------------------------------------------|---------------------------|
 | `code`                 | `INT`      | `PRIMARY KEY`                                  | Уникальный код блока      |
 | `discipline_code`      | `INT`      | `NOT NULL`, `REFERENCES discipline(code)`      | Ссылка на дисциплину      |
-| `credits`              | `INT`      | `NOT NULL`                                     | Зачётные единицы          |
+| `credit_units`         | `INT`      | `NOT NULL`                                     | Зачётные единицы          |
 | `assessment_type_code` | `INT`      | `NOT NULL`, `REFERENCES assessment_type(code)` | Вид аттестации            |
 | `has_coursework`       | `BOOL`     | `NOT NULL`                                     | Наличие курсовой работы   |
 | `has_project`          | `BOOL`     | `NOT NULL`                                     | Наличие проектной работы  |
@@ -100,4 +100,5 @@
 | `name`  | `VARCHAR(20)` | `NOT NULL`    | Название компетенции       |
 
 ### IDEF1x ER-диаграмма:
+
 <img src="../images/db-diagram.png" alt="ER-диаграмма" width="1000"/>
