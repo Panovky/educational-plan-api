@@ -42,6 +42,8 @@ class DisciplineBlock(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     discipline_id: Mapped[int] = mapped_column(Integer, ForeignKey('disciplines.id'))
+    educational_type_id: Mapped[int] = mapped_column(Integer, ForeignKey('educational_types.id'))
+    semester_number: Mapped[int] = mapped_column(Integer, nullable=False)
     credit_units: Mapped[int] = mapped_column(Integer, nullable=False)
     assessment_type_id: Mapped[int] = mapped_column(Integer, ForeignKey('assessment_types.id'))
     has_coursework: Mapped[bool] = mapped_column(Boolean, nullable=False)
@@ -52,6 +54,7 @@ class DisciplineBlock(Base):
     lab_hours: Mapped[int] = mapped_column(Integer, nullable=False)
 
     discipline = relationship('Discipline', back_populates='discipline_blocks')
+    educational_type = relationship('EducationalType', back_populates='discipline_blocks')
     assessment_type = relationship('AssessmentType', back_populates='discipline_blocks')
     department = relationship('Department', back_populates='discipline_blocks')
 
@@ -98,3 +101,16 @@ class CompetencyCode(Base):
     additional_competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
 
     competency = relationship('Competency', back_populates='competency_codes')
+
+
+class EducationalType(Base):
+    """Бакалавриат, магистратура и т.д."""
+    __tablename__ = 'educational_types'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
+    semester_count: Mapped[int] = mapped_column(Integer, nullable=False)
+
+    discipline_block = relationship('DisciplineBlock', back_populates='educational_type')
+
+
