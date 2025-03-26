@@ -1,6 +1,5 @@
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from src.main import engine
 from typing import Annotated
 
 
