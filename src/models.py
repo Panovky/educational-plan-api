@@ -13,8 +13,6 @@ class Discipline(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
 
-    discipline_blocks = relationship('DisciplineBlock', back_populates='discipline')
-
 
 class AssessmentType(Base):
     """Виды аттестации (зачеты, экзамены и т.д.)."""
@@ -23,8 +21,6 @@ class AssessmentType(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(11), nullable=False, unique=True)
 
-    discipline_blocks = relationship('DisciplineBlock', back_populates='assessment_type')
-
 
 class Department(Base):
     """Информация о кафедрах."""
@@ -32,8 +28,6 @@ class Department(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
-
-    discipline_blocks = relationship('DisciplineBlock', back_populates='department')
 
 
 class DisciplineBlock(Base):
@@ -53,11 +47,6 @@ class DisciplineBlock(Base):
     practice_hours: Mapped[int] = mapped_column(Integer, nullable=False)
     lab_hours: Mapped[int] = mapped_column(Integer, nullable=False)
 
-    discipline = relationship('Discipline', back_populates='discipline_blocks')
-    educational_type = relationship('EducationalType', back_populates='discipline_blocks')
-    assessment_type = relationship('AssessmentType', back_populates='discipline_blocks')
-    department = relationship('Department', back_populates='discipline_blocks')
-
 
 class Competency(Base):
     """Компетенции."""
@@ -65,8 +54,6 @@ class Competency(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(20), nullable=False)
-
-    competency_codes = relationship('CompetencyCode', back_populates='competency')
 
 
 class CompetencyIndicator(Base):
@@ -77,8 +64,6 @@ class CompetencyIndicator(Base):
     competency_code_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_codes.id'))
     name: Mapped[str] = mapped_column(String(100), nullable=False, unique=True)
 
-    competency_code = relationship('CompetencyCode', back_populates='competency_indicators')
-
 
 class DisciplineBlockCompetency(Base):
     """Связь блоков дисциплин и компетенций."""
@@ -87,9 +72,6 @@ class DisciplineBlockCompetency(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     competency_code_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_codes.id'))
     discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
-
-    competency_code = relationship('CompetencyCode', back_populates='discipline_block_competencies')
-    discipline_block = relationship('Discipline', back_populates='discipline_block_competencies')
 
 
 class CompetencyCode(Base):
@@ -100,8 +82,6 @@ class CompetencyCode(Base):
     name: Mapped[str] = mapped_column(String(5), nullable=False)
     additional_competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
 
-    competency = relationship('Competency', back_populates='competency_codes')
-
 
 class EducationalType(Base):
     """Бакалавриат, магистратура и т.д."""
@@ -111,6 +91,5 @@ class EducationalType(Base):
     name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
     semester_count: Mapped[int] = mapped_column(Integer, nullable=False)
 
-    discipline_block = relationship('DisciplineBlock', back_populates='educational_type')
 
 
