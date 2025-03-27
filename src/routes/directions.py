@@ -5,7 +5,7 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import DirectionNotFoundException
 from src.models import Direction
-from src.schemas import DirectionBase, DirectionRead
+from src.schemas import DirectionCreate, DirectionUpdate, DirectionRead
 
 router = APIRouter(
     prefix='/directions',
@@ -32,7 +32,7 @@ def get_direction(direction_id: Annotated[int, Path(gt=0)], session: SessionDep)
     summary='Update the direction'
 )
 def update_direction(
-        direction_id: Annotated[int, Path(gt=0)], direction_data: DirectionBase, session: SessionDep
+        direction_id: Annotated[int, Path(gt=0)], direction_data: DirectionUpdate, session: SessionDep
 ) -> DirectionRead:
     """Update the direction with the specified id with the given information (blank values are ignored)"""
     direction = session.get(Direction, direction_id)
@@ -82,7 +82,7 @@ def get_directions(session: SessionDep, limit: int = 10, offset: int = 0) -> lis
     responses={201: {'description': 'Direction successfully created'}},
     summary='Create the direction'
 )
-def create_direction(direction_data: DirectionBase, session: SessionDep) -> Any:
+def create_direction(direction_data: DirectionCreate, session: SessionDep) -> Any:
     """Create the direction with the given information."""
     direction = Direction(**direction_data.model_dump())
     session.add(direction)
