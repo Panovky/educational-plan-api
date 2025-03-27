@@ -75,20 +75,44 @@ def validate_up(request: List[Row]) -> ValidationResponse:
     # Получаем количество семестров из первой строки
     semesters_count = len(request[0].data)
     
-    # Проверяем зачетные единицы по семестрам
+    # Проверяем зачетные единицы по семестрам и курсовые работы
+    total_credits = 0
     for semester_idx in range(semesters_count):
         semester_credits = sum(
             row.data[semester_idx][i].credits 
             for row in request 
             for i in range(len(row.data[semester_idx]))
         )
+        total_credits += semester_credits
         
         if not 24 <= semester_credits <= 36:
             validation_results.append(ValidationResult(
                 message=f"В семестре {semester_idx + 1} количество з.е.: {semester_credits} (должно быть 30 ± 6)",
                 severity=ValidationSeverity.BLOCKING
             ))
+            
+        # Подсчет курсовых работ в семестре
+        course_works_count = sum(
+            1 
+            for row in request 
+            for discipline in row.data[semester_idx] 
+            if discipline.hasCourseWork
+        )
+        
+        if course_works_count > 2:
+            validation_results.append(ValidationResult(
+                message=f"В семестре {semester_idx + 1} количество курсовых работ: {course_works_count} (должно быть не больше 2)",
+                severity=ValidationSeverity.WARNING
+            ))
     
+    # Проверяем общее количество зачетных единиц
+    expected_credits = 240 if semesters_count == 8 else 120
+    if total_credits != expected_credits:
+        validation_results.append(ValidationResult(
+            message=f"Общее количество з.е.: {total_credits} (должно быть {expected_credits})",
+            severity=ValidationSeverity.BLOCKING
+        ))
+
     return ValidationResponse(
         isValid=not any(r.severity == ValidationSeverity.BLOCKING for r in validation_results),
         results=validation_results,
