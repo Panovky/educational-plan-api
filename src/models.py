@@ -7,45 +7,64 @@ class Base(DeclarativeBase):
 
 
 class Discipline(Base):
-    """Информация о дисциплинах."""
+    """Дисциплины."""
     __tablename__ = 'disciplines'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    short_name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
 
 
-class AssessmentType(Base):
-    """Виды аттестации (зачеты, экзамены и т.д.)."""
-    __tablename__ = 'assessment_types'
+class ControlType(Base):
+    """Виды контроля дисциплин (зачет, экзамен, дифференцированный зачет)."""
+    __tablename__ = 'control_types'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(11), nullable=False, unique=True)
+    name: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
 
 
 class Department(Base):
-    """Информация о кафедрах."""
+    """Кафедры."""
     __tablename__ = 'departments'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
 
 
-class DisciplineBlock(Base):
-    """Блоки дисциплин и их характеристики."""
-    __tablename__ = 'discipline_blocks'
+class EducationalLevel(Base):
+    """Уровни образования (бакалавриат, магистратура, аспирантура, специалитет)."""
+    __tablename__ = 'educational_levels'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    discipline_id: Mapped[int] = mapped_column(Integer, ForeignKey('disciplines.id'))
-    educational_type_id: Mapped[int] = mapped_column(Integer, ForeignKey('educational_types.id'))
-    semester_number: Mapped[int] = mapped_column(Integer, nullable=False)
-    credit_units: Mapped[int] = mapped_column(Integer, nullable=False)
-    assessment_type_id: Mapped[int] = mapped_column(Integer, ForeignKey('assessment_types.id'))
-    has_coursework: Mapped[bool] = mapped_column(Boolean, nullable=False)
-    has_project: Mapped[bool] = mapped_column(Boolean, nullable=False)
-    department_id: Mapped[int] = mapped_column(Integer, ForeignKey('departments.id'))
-    lecture_hours: Mapped[int] = mapped_column(Integer, nullable=False)
-    practice_hours: Mapped[int] = mapped_column(Integer, nullable=False)
-    lab_hours: Mapped[int] = mapped_column(Integer, nullable=False)
+    name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
+
+
+class EducationalForm(Base):
+    """Формы образования (очная, заочная, очно-заочная)."""
+    __tablename__ = 'educational_forms'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
+
+
+class Direction(Base):
+    """Направления подготовки."""
+    __tablename__ = 'directions'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
+    educational_level_id: Mapped[int] = mapped_column(Integer, ForeignKey('educational_levels.id'))
+    educational_form_id: Mapped[int] = mapped_column(Integer, ForeignKey('educational_forms.id'))
+    semester_count: Mapped[int] = mapped_column(Integer, nullable=False)
+
+
+class MapCore(Base):
+    """Ядра карты."""
+    __tablename__ = 'map_cors'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(20), nullable=False)
+    direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
 
 
 class Competency(Base):
@@ -56,40 +75,71 @@ class Competency(Base):
     name: Mapped[str] = mapped_column(String(20), nullable=False)
 
 
-class CompetencyIndicator(Base):
-    """Индикаторы компетенций."""
-    __tablename__ = 'competency_indicators'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    competency_code_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_codes.id'))
-    name: Mapped[str] = mapped_column(String(100), nullable=False, unique=True)
-
-
-class DisciplineBlockCompetency(Base):
-    """Связь блоков дисциплин и компетенций."""
-    __tablename__ = 'discipline_block_competencies'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    competency_code_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_codes.id'))
-    discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
-
-
 class CompetencyCode(Base):
     """Коды компетенций."""
     __tablename__ = 'competency_codes'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(5), nullable=False)
-    additional_competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
+    competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
 
 
-class EducationalType(Base):
-    """Бакалавриат, магистратура и т.д."""
-    __tablename__ = 'educational_types'
+class Indicator(Base):
+    """Индикаторы."""
+    __tablename__ = 'indicators'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
-    semester_count: Mapped[int] = mapped_column(Integer, nullable=False)
+    name: Mapped[str] = mapped_column(String(100), nullable=False, unique=True)
+    competency_code_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_codes.id'))
+
+
+class ActivityType(Base):
+    """Виды учебных занятий (практические занятия, лекции, лабораторные работы)."""
+    __tablename__ = 'activity_types'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
+
+
+class DisciplineBlockActivityType(Base):
+    """Связи блоков дисциплин и видов учебных занятий."""
+    __tablename__ = 'discipline_block_activity_types'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
+    activity_type_id: Mapped[int] = mapped_column(Integer, ForeignKey('activity_types.id'))
+
+
+class DisciplineBlock(Base):
+    """Блоки дисциплин."""
+    __tablename__ = 'discipline_blocks'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    discipline_id: Mapped[int] = mapped_column(Integer, ForeignKey('disciplines.id'))
+    credit_units: Mapped[int] = mapped_column(Integer, nullable=False)
+    control_type_id: Mapped[int] = mapped_column(Integer, ForeignKey('control_types.id'))
+    department_id: Mapped[int] = mapped_column(Integer, ForeignKey('departments.id'))
+    lecture_hours: Mapped[int] = mapped_column(Integer, nullable=False)
+    practice_hours: Mapped[int] = mapped_column(Integer, nullable=False)
+    lab_hours: Mapped[int] = mapped_column(Integer, nullable=False)
+    semester_number: Mapped[int] = mapped_column(Integer, nullable=False)
+    map_core_id: Mapped[int] = mapped_column(Integer, ForeignKey('map_cors.id'))
+    direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
+
+
+class DisciplineBlockCompetencyCode(Base):
+    """Связи блоков дисциплин и кодов компетенций."""
+    __tablename__ = 'discipline_block_competency_codes'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
+    competency_code_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_codes.id'))
+
+
+
+
+
+
 
 
 
