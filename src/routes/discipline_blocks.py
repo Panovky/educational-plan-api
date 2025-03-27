@@ -5,7 +5,7 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import DisciplineBlockNotFoundException
 from src.models import DisciplineBlock
-from src.schemas import DisciplineBlockBase, DisciplineBlockRead
+from src.schemas import DisciplineBlockCreate, DisciplineBlockUpdate, DisciplineBlockRead
 
 router = APIRouter(
     prefix='/discipline-blocks',
@@ -38,7 +38,9 @@ def get_discipline_block(discipline_block_id: Annotated[int, Path(gt=0)], sessio
     summary='Update the discipline block'
 )
 def update_discipline_block(
-        discipline_block_id: Annotated[int, Path(gt=0)], discipline_block_data: DisciplineBlockBase, session: SessionDep
+        discipline_block_id: Annotated[int, Path(gt=0)],
+        discipline_block_data: DisciplineBlockUpdate,
+        session: SessionDep
 ) -> DisciplineBlockRead:
     """Update the discipline block with the specified id with the given information (blank values are ignored)"""
     discipline_block = session.get(DisciplineBlock, discipline_block_id)
@@ -88,7 +90,7 @@ def get_discipline_blocks(session: SessionDep, limit: int = 10, offset: int = 0)
     responses={201: {'description': 'Discipline block successfully created'}},
     summary='Create the discipline block'
 )
-def create_discipline_block(discipline_block_data: DisciplineBlockBase, session: SessionDep) -> Any:
+def create_discipline_block(discipline_block_data: DisciplineBlockCreate, session: SessionDep) -> Any:
     """Create the discipline block with the given information."""
     discipline_block = DisciplineBlock(**discipline_block_data.model_dump())
     session.add(discipline_block)
