@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.routes import disciplines, directions
+from src.routes import disciplines, directions, discipline_blocks
 
 
 app = FastAPI()
@@ -15,3 +15,5 @@ app.add_middleware(
 
 app.include_router(disciplines.router)
 app.include_router(directions.router)
+app.include_router(discipline_blocks.router)
+
