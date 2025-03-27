@@ -2,12 +2,17 @@ from pydantic import BaseModel, Field
 from typing import Annotated
 
 
-class DisciplineBase(BaseModel):
+class DisciplineCreate(BaseModel):
     name: Annotated[str, Field(example='Проектный практикум', max_length=255)]
     short_name: Annotated[str, Field(example="ПП", max_length=50)]
 
 
-class DisciplineRead(DisciplineBase):
+class DisciplineUpdate(BaseModel):
+    name: Annotated[str | None, Field(example='Проектный практикум', max_length=255)]
+    short_name: Annotated[str | None, Field(example="ПП", max_length=50)]
+
+
+class DisciplineRead(DisciplineCreate):
     id: Annotated[int, Field(example=1)]
 
 

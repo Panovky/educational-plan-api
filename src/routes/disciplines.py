@@ -5,7 +5,7 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import DisciplineNotFoundException
 from src.models import Discipline
-from src.schemas import DisciplineBase, DisciplineRead
+from src.schemas import DisciplineCreate, DisciplineUpdate, DisciplineRead
 
 router = APIRouter(
     prefix='/disciplines',
@@ -32,7 +32,7 @@ def get_discipline(discipline_id: Annotated[int, Path(gt=0)], session: SessionDe
     summary='Update the discipline'
 )
 def update_discipline(
-        discipline_id: Annotated[int, Path(gt=0)], discipline_data: DisciplineBase, session: SessionDep
+        discipline_id: Annotated[int, Path(gt=0)], discipline_data: DisciplineUpdate, session: SessionDep
 ) -> DisciplineRead:
     """Update the discipline with the specified id with the given information (blank values are ignored)"""
     discipline = session.get(Discipline, discipline_id)
@@ -82,7 +82,7 @@ def get_disciplines(session: SessionDep, limit: int = 10, offset: int = 0) -> li
     responses={201: {'description': 'Discipline successfully created'}},
     summary='Create the discipline'
 )
-def create_discipline(discipline_data: DisciplineBase, session: SessionDep) -> Any:
+def create_discipline(discipline_data: DisciplineCreate, session: SessionDep) -> Any:
     """Create the discipline with the given information."""
     discipline = Discipline(**discipline_data.model_dump())
     session.add(discipline)
