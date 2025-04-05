@@ -16,6 +16,18 @@ class DisciplineRead(DisciplineCreate):
     id: Annotated[int, Field(example=1)]
 
 
+class ControlTypeCreate(BaseModel):
+    name: Annotated[str, Field(example='Дифференцированный зачет', max_length=30)]
+
+
+class ControlTypeUpdate(BaseModel):
+    name: Annotated[str | None, Field(example='Дифференцированный зачет', max_length=30)]
+
+
+class ControlTypeRead(ControlTypeCreate):
+    id: Annotated[int, Field(example=1)]
+
+
 class DirectionCreate(BaseModel):
     name: Annotated[str, Field(example='Программная инженерия', max_length=50)]
     educational_level_id: Annotated[int, Field(example=1)]

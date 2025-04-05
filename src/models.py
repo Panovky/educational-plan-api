@@ -1,5 +1,5 @@
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Boolean, ForeignKey
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import Integer, String, ForeignKey
 
 
 class Base(DeclarativeBase):
@@ -134,12 +134,3 @@ class DisciplineBlockCompetencyCode(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
     competency_code_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_codes.id'))
-
-
-
-
-
-
-
-
-
