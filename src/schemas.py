@@ -28,6 +28,18 @@ class ControlTypeRead(ControlTypeCreate):
     id: Annotated[int, Field(example=1)]
 
 
+class DepartmentCreate(BaseModel):
+    name: Annotated[str, Field(example='Информационные системы и технологии', max_length=50)]
+
+
+class DepartmentUpdate(BaseModel):
+    name: Annotated[str | None, Field(example='Информационные системы и технологии', max_length=50)]
+
+
+class DepartmentRead(DepartmentCreate):
+    id: Annotated[int, Field(example=1)]
+
+
 class DirectionCreate(BaseModel):
     name: Annotated[str, Field(example='Программная инженерия', max_length=50)]
     educational_level_id: Annotated[int, Field(example=1)]
