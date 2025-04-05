@@ -5,7 +5,23 @@ class DisciplineNotFoundException(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail='Discipline not found.'
+            detail='Дисциплина с указанным id не найдена.'
+        )
+
+
+class DisciplineNameIsNotUniqueException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_409_CONFLICT,
+            detail='Дисциплина с таким наименованием уже существует.'
+        )
+
+
+class DisciplineShortNameIsNotUniqueException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_409_CONFLICT,
+            detail='Дисциплина с таким кратким наименованием уже существует.'
         )
 
 
