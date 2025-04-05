@@ -41,6 +41,22 @@ class ControlTypeNameIsNotUniqueException(HTTPException):
         )
 
 
+class DepartmentNotFoundException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail='Кафедра с указанным id не найдена.'
+        )
+
+
+class DepartmentNameIsNotUniqueException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_409_CONFLICT,
+            detail='Кафедра с таким наименованием уже существует.'
+        )
+
+
 class DirectionNotFoundException(HTTPException):
     def __init__(self):
         super().__init__(
