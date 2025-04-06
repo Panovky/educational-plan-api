@@ -57,6 +57,22 @@ class DepartmentNameIsNotUniqueException(HTTPException):
         )
 
 
+class ActivityTypeNotFoundException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail='Вид учебных занятий с указанным id не найден.'
+        )
+
+
+class ActivityTypeNameIsNotUniqueException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_409_CONFLICT,
+            detail='Данный вид учебных занятий уже существует.'
+        )
+
+
 class DirectionNotFoundException(HTTPException):
     def __init__(self):
         super().__init__(
