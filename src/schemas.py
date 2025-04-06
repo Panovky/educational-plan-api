@@ -40,6 +40,18 @@ class DepartmentRead(DepartmentCreate):
     id: Annotated[int, Field(example=1)]
 
 
+class ActivityTypeCreate(BaseModel):
+    name: Annotated[str, Field(example='Практическое занятие', max_length=30)]
+
+
+class ActivityTypeUpdate(BaseModel):
+    name: Annotated[str | None, Field(example='Практическое занятие', max_length=30)]
+
+
+class ActivityTypeRead(ActivityTypeCreate):
+    id: Annotated[int, Field(example=1)]
+
+
 class DirectionCreate(BaseModel):
     name: Annotated[str, Field(example='Программная инженерия', max_length=50)]
     educational_level_id: Annotated[int, Field(example=1)]
