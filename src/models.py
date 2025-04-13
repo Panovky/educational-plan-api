@@ -67,30 +67,32 @@ class MapCore(Base):
     direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
 
 
+class CompetencyGroup(Base):
+    """Группы компетенций."""
+    __tablename__ = 'competency_groups'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
+
+
 class Competency(Base):
     """Компетенции."""
     __tablename__ = 'competencies'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(20), nullable=False)
-
-
-class CompetencyCode(Base):
-    """Коды компетенций."""
-    __tablename__ = 'competency_codes'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(5), nullable=False)
-    competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
+    code: Mapped[str] = mapped_column(String(10), nullable=False)
+    name: Mapped[str] = mapped_column(String(255), nullable=False)
+    competency_group_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_groups.id'))
 
 
 class Indicator(Base):
-    """Индикаторы."""
+    """Индикаторы достижения компетенций."""
     __tablename__ = 'indicators'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(100), nullable=False, unique=True)
-    competency_code_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_codes.id'))
+    code: Mapped[str] = mapped_column(String(10), nullable=False)
+    name: Mapped[str] = mapped_column(String(255), nullable=False)
+    competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
 
 
 class ActivityType(Base):
@@ -127,10 +129,10 @@ class DisciplineBlock(Base):
     direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
 
 
-class DisciplineBlockCompetencyCode(Base):
-    """Связи блоков дисциплин и кодов компетенций."""
-    __tablename__ = 'discipline_block_competency_codes'
+class DisciplineBlockCompetency(Base):
+    """Связи блоков дисциплин и компетенций."""
+    __tablename__ = 'discipline_block_competencies'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
-    competency_code_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_codes.id'))
+    competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
