@@ -80,7 +80,7 @@ class Competency(Base):
     __tablename__ = 'competencies'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    code: Mapped[str] = mapped_column(String(10), nullable=False)
+    code: Mapped[str] = mapped_column(String(10), nullable=False, unique=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     competency_group_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_groups.id'))
 
@@ -90,7 +90,7 @@ class Indicator(Base):
     __tablename__ = 'indicators'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    code: Mapped[str] = mapped_column(String(10), nullable=False)
+    code: Mapped[str] = mapped_column(String(10), nullable=False, unique=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
 
