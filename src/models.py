@@ -1,4 +1,4 @@
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, ForeignKey
 
 
@@ -74,6 +74,8 @@ class CompetencyGroup(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
 
+    competencies = relationship('Competency', back_populates='competency_group', cascade='all, delete-orphan')
+
 
 class Competency(Base):
     """Компетенции."""
@@ -84,6 +86,7 @@ class Competency(Base):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     competency_group_id: Mapped[int] = mapped_column(Integer, ForeignKey('competency_groups.id'))
 
+    competency_group = relationship('CompetencyGroup', back_populates='competencies')
 
 class Indicator(Base):
     """Индикаторы достижения компетенций."""
