@@ -127,3 +127,19 @@ class DisciplineShortNameIsNotUniqueException(HTTPException):
             status_code=status.HTTP_409_CONFLICT,
             detail='Дисциплина с таким кратким наименованием уже существует.'
         )
+
+
+class IndicatorNotFoundException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail='Индикатор дисциплины с указанным id не найден.'
+        )
+
+
+class IndicatorCodeIsNotUniqueException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_409_CONFLICT,
+            detail='Индикатор дисциплины с таким кодом уже существует.'
+        )
