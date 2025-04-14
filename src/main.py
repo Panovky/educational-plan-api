@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes import (
-    disciplines, control_types, activity_types, departments, directions, discipline_blocks, validations
+    activity_types, competency_groups, control_types, departments, directions, discipline_blocks, disciplines,
+    validations
 )
 
 
@@ -15,10 +16,11 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
-app.include_router(disciplines.router)
+app.include_router(activity_types.router)
+app.include_router(competency_groups.router)
 app.include_router(control_types.router)
 app.include_router(departments.router)
-app.include_router(activity_types.router)
 app.include_router(directions.router)
 app.include_router(discipline_blocks.router)
+app.include_router(disciplines.router)
 app.include_router(validations.router)

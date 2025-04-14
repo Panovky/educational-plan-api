@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from sqlalchemy import select, func
-from sqlalchemy import Session
+from sqlalchemy.orm import Session
 from typing import TypeVar, Generic
 from src.models import (
     ActivityType, Competency, CompetencyGroup, ControlType, Department, Direction, DisciplineBlock, Discipline,
