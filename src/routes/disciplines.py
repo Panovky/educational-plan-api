@@ -88,9 +88,9 @@ def delete_discipline(discipline_id: Annotated[int, Path(gt=0)], session: Sessio
     responses={200: {'description': 'Disciplines successfully received'}},
     summary='Return a list of disciplines'
 )
-def get_disciplines(session: SessionDep, limit: int = 10, offset: int = 0) -> list[DisciplineRead]:
-    """Return a list of disciplines of a given length (limit), starting from a given table entry (offset)."""
-    disciplines = session.execute(select(Discipline).offset(offset).limit(limit)).scalars()
+def get_disciplines(session: SessionDep) -> list[DisciplineRead]:
+    """Return a list of disciplines."""
+    disciplines = session.execute(select(Discipline)).scalars()
     return disciplines
 
 
