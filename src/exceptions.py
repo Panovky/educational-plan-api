@@ -149,5 +149,5 @@ class MapCoreNotFoundException(HTTPException):
     def __init__(self):
         super().__init__(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail='Ядро карты с указанным id не найден.'
+            detail='Ядро карты с указанным id не найдено.'
         )

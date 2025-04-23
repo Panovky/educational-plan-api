@@ -147,3 +147,15 @@ class IndicatorUpdate(BaseModel):
 
 class IndicatorRead(IndicatorCreate):
     id: Annotated[int, Field(example=1)]
+
+
+class MapCoreCreate(BaseModel):
+    name: Annotated[str, Field(example='Ядро ЯГТУ', max_length=50)]
+
+
+class MapCoreUpdate(BaseModel):
+    name: Annotated[str | None, Field(example='Ядро ЯГТУ', max_length=50)]
+
+
+class MapCoreRead(MapCoreCreate):
+    id: Annotated[int, Field(example=1)]
