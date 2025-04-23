@@ -64,7 +64,6 @@ class MapCore(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(20), nullable=False)
-    direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
 
 
 class CompetencyGroup(Base):
@@ -133,7 +132,6 @@ class DisciplineBlock(Base):
     lab_hours: Mapped[int] = mapped_column(Integer, nullable=False)
     semester_number: Mapped[int] = mapped_column(Integer, nullable=False)
     map_core_id: Mapped[int] = mapped_column(Integer, ForeignKey('map_cors.id'))
-    direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
 
 
 class DisciplineBlockCompetency(Base):
@@ -143,3 +141,12 @@ class DisciplineBlockCompetency(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
     competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
+
+
+class DirectionMapCore(Base):
+    """Связи направлений подготовки и ядер карт."""
+    __tablename__ = 'direction_map_cors'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
+    map_core_id: Mapped[int] = mapped_column(Integer, ForeignKey('map_cors.id'))
