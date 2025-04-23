@@ -6,15 +6,6 @@ class Base(DeclarativeBase):
     pass
 
 
-class Discipline(Base):
-    """Дисциплины."""
-    __tablename__ = 'disciplines'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
-    short_name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
-
-
 class ControlType(Base):
     """Виды контроля дисциплин (зачет, экзамен, дифференцированный зачет)."""
     __tablename__ = 'control_types'
@@ -29,6 +20,16 @@ class Department(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
+
+
+class Discipline(Base):
+    """Дисциплины."""
+    __tablename__ = 'disciplines'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    short_name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
+    department_id: Mapped[int] = mapped_column(Integer, ForeignKey('departments.id'))
 
 
 class EducationalLevel(Base):
@@ -126,7 +127,6 @@ class DisciplineBlock(Base):
     discipline_id: Mapped[int] = mapped_column(Integer, ForeignKey('disciplines.id'))
     credit_units: Mapped[int] = mapped_column(Integer, nullable=False)
     control_type_id: Mapped[int] = mapped_column(Integer, ForeignKey('control_types.id'))
-    department_id: Mapped[int] = mapped_column(Integer, ForeignKey('departments.id'))
     lecture_hours: Mapped[int] = mapped_column(Integer, nullable=False)
     practice_hours: Mapped[int] = mapped_column(Integer, nullable=False)
     lab_hours: Mapped[int] = mapped_column(Integer, nullable=False)
