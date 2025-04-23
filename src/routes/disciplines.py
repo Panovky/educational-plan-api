@@ -4,9 +4,10 @@ from sqlalchemy import select, exists, and_
 from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import (
-    DisciplineNotFoundException, DisciplineNameIsNotUniqueException, DisciplineShortNameIsNotUniqueException
+    DisciplineNotFoundException, DisciplineNameIsNotUniqueException, DisciplineShortNameIsNotUniqueException,
+    DepartmentNotFoundException
 )
-from src.models import Discipline
+from src.models import Discipline, Department
 from src.schemas import DisciplineCreate, DisciplineUpdate, DisciplineRead
 
 router = APIRouter(
@@ -32,7 +33,7 @@ def get_discipline(discipline_id: Annotated[int, Path(gt=0)], session: SessionDe
     '/{discipline_id}',
     responses={
         200: {'description': 'Discipline successfully updated'},
-        404: {'description': 'Discipline not found'},
+        404: {'description': 'Discipline or department not found'},
         409: {'description': 'Discipline data is not unique'}
     },
     summary='Update the discipline'
@@ -56,6 +57,10 @@ def update_discipline(
         )))
         if session.execute(stmt).scalar():
             raise DisciplineShortNameIsNotUniqueException()
+
+    if discipline_data.department_id:
+        if not session.get(Department, discipline_data.department_id):
+            raise DepartmentNotFoundException()
 
     for key, value in discipline_data.model_dump(exclude_none=True).items():
         setattr(discipline, key, value)
@@ -100,6 +105,7 @@ def get_disciplines(session: SessionDep) -> list[DisciplineRead]:
     status_code=status.HTTP_201_CREATED,
     responses={
         201: {'description': 'Discipline successfully created'},
+        404: {'description': 'Department not found'},
         409: {'description': 'Discipline data is not unique'}
     },
     summary='Create the discipline'
@@ -114,6 +120,9 @@ def create_discipline(discipline_data: DisciplineCreate, session: SessionDep) ->
     stmt = select(exists().where(Discipline.short_name == discipline_data.short_name))
     if session.execute(stmt).scalar():
         raise DisciplineShortNameIsNotUniqueException()
+
+    if not session.get(Department, discipline_data.department_id):
+        raise DepartmentNotFoundException()
 
     discipline = Discipline(**discipline_data.model_dump())
     session.add(discipline)
