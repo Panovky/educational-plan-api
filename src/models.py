@@ -20,6 +20,7 @@ class Department(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
+    disciplines = relationship('Discipline', back_populates='department', cascade='all, delete-orphan')
 
 
 class Discipline(Base):
@@ -30,6 +31,8 @@ class Discipline(Base):
     name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
     short_name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
     department_id: Mapped[int] = mapped_column(Integer, ForeignKey('departments.id'))
+
+    department = relationship('Department', back_populates='disciplines')
 
 
 class EducationalLevel(Base):
