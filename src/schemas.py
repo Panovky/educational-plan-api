@@ -91,26 +91,22 @@ class DisciplineBlockCreate(BaseModel):
     discipline_id: Annotated[int, Field(example=1)]
     credit_units: Annotated[int, Field(example=3)]
     control_type_id: Annotated[int, Field(example=1)]
-    department_id: Annotated[int, Field(example=1)]
     lecture_hours: Annotated[int, Field(example=40)]
     practice_hours: Annotated[int, Field(example=40)]
     lab_hours: Annotated[int, Field(example=40)]
     semester_number: Annotated[int, Field(example=3)]
     map_core_id: Annotated[int, Field(example=1)]
-    direction_id: Annotated[int, Field(example=1)]
 
 
 class DisciplineBlockUpdate(BaseModel):
     discipline_id: Annotated[int | None, Field(example=1)]
     credit_units: Annotated[int | None, Field(example=3)]
     control_type_id: Annotated[int | None, Field(example=1)]
-    department_id: Annotated[int | None, Field(example=1)]
     lecture_hours: Annotated[int | None, Field(example=40)]
     practice_hours: Annotated[int | None, Field(example=40)]
     lab_hours: Annotated[int | None, Field(example=40)]
     semester_number: Annotated[int | None, Field(example=3)]
     map_core_id: Annotated[int | None, Field(example=1)]
-    direction_id: Annotated[int | None, Field(example=1)]
 
 
 class DisciplineBlockRead(DisciplineBlockCreate):
@@ -120,11 +116,13 @@ class DisciplineBlockRead(DisciplineBlockCreate):
 class DisciplineCreate(BaseModel):
     name: Annotated[str, Field(example='Проектный практикум', max_length=255)]
     short_name: Annotated[str, Field(example="ПП", max_length=50)]
+    department_id: Annotated[int, Field(example=1)]
 
 
 class DisciplineUpdate(BaseModel):
     name: Annotated[str | None, Field(example='Проектный практикум', max_length=255)]
     short_name: Annotated[str | None, Field(example="ПП", max_length=50)]
+    department_id: Annotated[int, Field(example=1)]
 
 
 class DisciplineRead(DisciplineCreate):
@@ -148,4 +146,16 @@ class IndicatorUpdate(BaseModel):
 
 
 class IndicatorRead(IndicatorCreate):
+    id: Annotated[int, Field(example=1)]
+
+
+class MapCoreCreate(BaseModel):
+    name: Annotated[str, Field(example='Ядро ЯГТУ', max_length=50)]
+
+
+class MapCoreUpdate(BaseModel):
+    name: Annotated[str | None, Field(example='Ядро ЯГТУ', max_length=50)]
+
+
+class MapCoreRead(MapCoreCreate):
     id: Annotated[int, Field(example=1)]

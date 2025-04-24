@@ -6,15 +6,6 @@ class Base(DeclarativeBase):
     pass
 
 
-class Discipline(Base):
-    """Дисциплины."""
-    __tablename__ = 'disciplines'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
-    short_name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
-
-
 class ControlType(Base):
     """Виды контроля дисциплин (зачет, экзамен, дифференцированный зачет)."""
     __tablename__ = 'control_types'
@@ -29,6 +20,19 @@ class Department(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
+    disciplines = relationship('Discipline', back_populates='department', cascade='all, delete-orphan')
+
+
+class Discipline(Base):
+    """Дисциплины."""
+    __tablename__ = 'disciplines'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    short_name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
+    department_id: Mapped[int] = mapped_column(Integer, ForeignKey('departments.id'))
+
+    department = relationship('Department', back_populates='disciplines')
 
 
 class EducationalLevel(Base):
@@ -63,8 +67,7 @@ class MapCore(Base):
     __tablename__ = 'map_cors'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(20), nullable=False)
-    direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
+    name: Mapped[str] = mapped_column(String(50), nullable=False)
 
 
 class CompetencyGroup(Base):
@@ -127,13 +130,11 @@ class DisciplineBlock(Base):
     discipline_id: Mapped[int] = mapped_column(Integer, ForeignKey('disciplines.id'))
     credit_units: Mapped[int] = mapped_column(Integer, nullable=False)
     control_type_id: Mapped[int] = mapped_column(Integer, ForeignKey('control_types.id'))
-    department_id: Mapped[int] = mapped_column(Integer, ForeignKey('departments.id'))
     lecture_hours: Mapped[int] = mapped_column(Integer, nullable=False)
     practice_hours: Mapped[int] = mapped_column(Integer, nullable=False)
     lab_hours: Mapped[int] = mapped_column(Integer, nullable=False)
     semester_number: Mapped[int] = mapped_column(Integer, nullable=False)
     map_core_id: Mapped[int] = mapped_column(Integer, ForeignKey('map_cors.id'))
-    direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
 
 
 class DisciplineBlockCompetency(Base):
@@ -143,3 +144,12 @@ class DisciplineBlockCompetency(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
     competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
+
+
+class DirectionMapCore(Base):
+    """Связи направлений подготовки и ядер карт."""
+    __tablename__ = 'direction_map_cors'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    direction_id: Mapped[int] = mapped_column(Integer, ForeignKey('directions.id'))
+    map_core_id: Mapped[int] = mapped_column(Integer, ForeignKey('map_cors.id'))

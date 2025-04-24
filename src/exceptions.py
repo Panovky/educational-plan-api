@@ -143,3 +143,11 @@ class IndicatorCodeIsNotUniqueException(HTTPException):
             status_code=status.HTTP_409_CONFLICT,
             detail='Индикатор дисциплины с таким кодом уже существует.'
         )
+
+
+class MapCoreNotFoundException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail='Ядро карты с указанным id не найдено.'
+        )
