@@ -1,6 +1,38 @@
 from fastapi import HTTPException, status
 
 
+class EducationalLevelNotFoundException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail='Уровень образования с указанным id не найден.'
+        )
+
+
+class EducationalLevelNameIsNotUniqueException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_409_CONFLICT,
+            detail='Данный уровень образования уже существует.'
+        )
+
+
+class EducationalFormNotFoundException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail='Форма образования с указанным id не найдена.'
+        )
+
+
+class EducationalFormNameIsNotUniqueException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_409_CONFLICT,
+            detail='Данная форма образования уже существует.'
+        )
+
+
 class ActivityTypeNotFoundException(HTTPException):
     def __init__(self):
         super().__init__(

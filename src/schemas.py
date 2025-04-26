@@ -2,6 +2,30 @@ from pydantic import BaseModel, Field
 from typing import Annotated
 
 
+class EducationalLevelCreate(BaseModel):
+    name: Annotated[str, Field(example='Бакалавриат', max_length=20)]
+
+
+class EducationalLevelUpdate(BaseModel):
+    name: Annotated[str | None, Field(example='Бакалавриат', max_length=20)]
+
+
+class EducationalLevelRead(EducationalLevelCreate):
+    id: Annotated[int, Field(example=1)]
+
+
+class EducationalFormCreate(BaseModel):
+    name: Annotated[str, Field(example='Очная', max_length=20)]
+
+
+class EducationalFormUpdate(BaseModel):
+    name: Annotated[str | None, Field(example='Очная', max_length=20)]
+
+
+class EducationalFormRead(EducationalFormCreate):
+    id: Annotated[int, Field(example=1)]
+
+
 class ActivityTypeCreate(BaseModel):
     name: Annotated[str, Field(example='Практическое занятие', max_length=30)]
 
