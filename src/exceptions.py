@@ -113,6 +113,14 @@ class DepartmentNameIsNotUniqueException(HTTPException):
         )
 
 
+class DepartmentShortNameIsNotUniqueException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_409_CONFLICT,
+            detail='Кафедра с таким кратким наименованием уже существует.'
+        )
+
+
 class DirectionNotFoundException(HTTPException):
     def __init__(self):
         super().__init__(

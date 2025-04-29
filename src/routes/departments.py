@@ -3,7 +3,9 @@ from fastapi.responses import Response
 from sqlalchemy import select, exists, and_
 from typing import Annotated, Any
 from src.dependencies import SessionDep
-from src.exceptions import DepartmentNotFoundException, DepartmentNameIsNotUniqueException
+from src.exceptions import (
+    DepartmentNotFoundException, DepartmentNameIsNotUniqueException, DepartmentShortNameIsNotUniqueException
+)
 from src.models import Department
 from src.schemas import DepartmentCreate, DepartmentUpdate, DepartmentRead
 
@@ -50,6 +52,13 @@ def update_department(
         stmt = select(exists().where(and_(Department.name == department_data.name, Department.id != department_id)))
         if session.execute(stmt).scalar():
             raise DepartmentNameIsNotUniqueException()
+
+    if department_data.short_name:
+        stmt = select(exists().where(
+            and_(Department.short_name == department_data.short_name, Department.id != department_id))
+        )
+        if session.execute(stmt).scalar():
+            raise DepartmentShortNameIsNotUniqueException()
 
     for key, value in department_data.model_dump(exclude_none=True).items():
         setattr(department, key, value)
@@ -103,6 +112,10 @@ def create_department(department_data: DepartmentCreate, session: SessionDep) ->
     stmt = select(exists().where(Department.name == department_data.name))
     if session.execute(stmt).scalar():
         raise DepartmentNameIsNotUniqueException()
+
+    stmt = select(exists().where(Department.short_name == department_data.short_name))
+    if session.execute(stmt).scalar():
+        raise DepartmentShortNameIsNotUniqueException()
 
     department = Department(**department_data.model_dump())
     session.add(department)
