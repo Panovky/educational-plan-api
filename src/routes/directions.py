@@ -3,8 +3,10 @@ from fastapi.responses import Response
 from sqlalchemy import select
 from typing import Annotated, Any
 from src.dependencies import SessionDep
-from src.exceptions import DirectionNotFoundException
-from src.models import Direction
+from src.exceptions import (
+    DirectionNotFoundException, EducationalLevelNotFoundException, EducationalFormNotFoundException
+)
+from src.models import Direction, EducationalLevel, EducationalForm
 from src.schemas import DirectionCreate, DirectionUpdate, DirectionRead
 
 router = APIRouter(
@@ -28,7 +30,10 @@ def get_direction(direction_id: Annotated[int, Path(gt=0)], session: SessionDep)
 
 @router.patch(
     '/{direction_id}',
-    responses={200: {'description': 'Direction successfully updated'}, 404: {'description': 'Direction not found'}},
+    responses={
+        200: {'description': 'Direction successfully updated'},
+        404: {'description': 'Direction, educational level or form not found'}
+    },
     summary='Update the direction'
 )
 def update_direction(
@@ -38,6 +43,15 @@ def update_direction(
     direction = session.get(Direction, direction_id)
     if not direction:
         raise DirectionNotFoundException()
+
+    if direction.educational_level_id:
+        if not session.get(EducationalLevel, direction_data.educational_level_id):
+            raise EducationalLevelNotFoundException()
+
+    if direction.educational_form_id:
+        if not session.get(EducationalForm, direction_data.educational_form_id):
+            raise EducationalFormNotFoundException()
+
     for key, value in direction_data.model_dump(exclude_none=True).items():
         setattr(direction, key, value)
     session.commit()
@@ -79,11 +93,20 @@ def get_directions(session: SessionDep, limit: int = 10, offset: int = 0) -> lis
     '/',
     response_model=DirectionRead,
     status_code=status.HTTP_201_CREATED,
-    responses={201: {'description': 'Direction successfully created'}},
+    responses={
+        201: {'description': 'Direction successfully created'},
+        404: {'description': 'Educational level or form not found'}
+    },
     summary='Create the direction'
 )
 def create_direction(direction_data: DirectionCreate, session: SessionDep) -> Any:
     """Create the direction with the given information."""
+    if not session.get(EducationalLevel, direction_data.educational_level_id):
+        raise EducationalLevelNotFoundException()
+
+    if not session.get(EducationalForm, direction_data.educational_form_id):
+        raise EducationalFormNotFoundException()
+
     direction = Direction(**direction_data.model_dump())
     session.add(direction)
     session.commit()
