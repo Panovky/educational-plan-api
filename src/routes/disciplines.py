@@ -89,7 +89,7 @@ def delete_discipline(discipline_id: Annotated[int, Path(gt=0)], session: Sessio
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Disciplines successfully received'}},
     summary='Return a list of disciplines'
 )
@@ -100,7 +100,7 @@ def get_disciplines(session: SessionDep) -> list[DisciplineRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=DisciplineRead,
     status_code=status.HTTP_201_CREATED,
     responses={

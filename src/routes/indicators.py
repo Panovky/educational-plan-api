@@ -84,7 +84,7 @@ def delete_indicator(indicator_id: Annotated[int, Path(gt=0)], session: SessionD
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Indicators successfully received'}},
     summary='Return a list of indicators'
 )
@@ -95,7 +95,7 @@ def get_indicators(session: SessionDep) -> list[IndicatorRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=IndicatorRead,
     status_code=status.HTTP_201_CREATED,
     responses={

@@ -89,7 +89,7 @@ def delete_discipline_block(discipline_block_id: Annotated[int, Path(gt=0)], ses
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Discipline blocks successfully received'}},
     summary='Return a list of discipline blocks'
 )
@@ -100,7 +100,7 @@ def get_discipline_blocks(session: SessionDep, limit: int = 10, offset: int = 0)
 
 
 @router.post(
-    '/',
+    '',
     response_model=DisciplineBlockRead,
     status_code=status.HTTP_201_CREATED,
     responses={

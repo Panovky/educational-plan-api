@@ -79,7 +79,7 @@ def delete_direction(direction_id: Annotated[int, Path(gt=0)], session: SessionD
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Directions successfully received'}},
     summary='Return a list of directions'
 )
@@ -90,7 +90,7 @@ def get_directions(session: SessionDep, limit: int = 10, offset: int = 0) -> lis
 
 
 @router.post(
-    '/',
+    '',
     response_model=DirectionRead,
     status_code=status.HTTP_201_CREATED,
     responses={

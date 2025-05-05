@@ -84,7 +84,7 @@ def delete_educational_form(educational_form_id: Annotated[int, Path(gt=0)], ses
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Educational forms successfully received'}},
     summary='Return a list of educational forms'
 )
@@ -95,7 +95,7 @@ def get_educational_forms(session: SessionDep) -> list[EducationalFormRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=EducationalFormRead,
     status_code=status.HTTP_201_CREATED,
     responses={

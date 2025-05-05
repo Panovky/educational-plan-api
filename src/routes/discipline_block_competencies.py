@@ -91,7 +91,7 @@ def delete_discipline_block_competency(
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Discipline block competencies successfully received'}},
     summary='Return a list of discipline block competencies'
 )
@@ -102,7 +102,7 @@ def get_discipline_block_competencies(session: SessionDep) -> list[DisciplineBlo
 
 
 @router.post(
-    '/',
+    '',
     response_model=DisciplineBlockCompetencyRead,
     status_code=status.HTTP_201_CREATED,
     responses={

@@ -73,7 +73,7 @@ def delete_map_core(map_core_id: Annotated[int, Path(gt=0)], session: SessionDep
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Map cores successfully received'}},
     summary='Return a list of map cores'
 )
@@ -84,7 +84,7 @@ def get_map_cores(session: SessionDep) -> list[MapCoreRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=MapCoreRead,
     status_code=status.HTTP_201_CREATED,
     responses={

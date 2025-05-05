@@ -87,7 +87,7 @@ def delete_department(department_id: Annotated[int, Path(gt=0)], session: Sessio
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Departments successfully received'}},
     summary='Return a list of departments'
 )
@@ -98,7 +98,7 @@ def get_departments(session: SessionDep) -> list[DepartmentRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=DepartmentRead,
     status_code=status.HTTP_201_CREATED,
     responses={
