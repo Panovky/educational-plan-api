@@ -93,9 +93,9 @@ def delete_discipline_block(discipline_block_id: Annotated[int, Path(gt=0)], ses
     responses={200: {'description': 'Discipline blocks successfully received'}},
     summary='Return a list of discipline blocks'
 )
-def get_discipline_blocks(session: SessionDep, limit: int = 10, offset: int = 0) -> list[DisciplineBlockRead]:
-    """Return a list of discipline blocks of a given length (limit), starting from a given table entry (offset)."""
-    discipline_blocks = session.execute(select(DisciplineBlock).offset(offset).limit(limit)).scalars()
+def get_discipline_blocks(session: SessionDep) -> list[DisciplineBlockRead]:
+    """Return a list of discipline blocks."""
+    discipline_blocks = session.execute(select(DisciplineBlock)).scalars()
     return discipline_blocks
 
 

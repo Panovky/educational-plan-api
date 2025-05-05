@@ -83,9 +83,9 @@ def delete_direction(direction_id: Annotated[int, Path(gt=0)], session: SessionD
     responses={200: {'description': 'Directions successfully received'}},
     summary='Return a list of directions'
 )
-def get_directions(session: SessionDep, limit: int = 10, offset: int = 0) -> list[DirectionRead]:
-    """Return a list of directions of a given length (limit), starting from a given table entry (offset)."""
-    directions = session.execute(select(Direction).offset(offset).limit(limit)).scalars()
+def get_directions(session: SessionDep) -> list[DirectionRead]:
+    """Return a list of directions."""
+    directions = session.execute(select(Direction)).scalars()
     return directions
 
 
