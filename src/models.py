@@ -57,7 +57,7 @@ class Direction(Base):
     __tablename__ = 'directions'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
+    name: Mapped[str] = mapped_column(String(50), nullable=False)
     educational_level_id: Mapped[int] = mapped_column(Integer, ForeignKey('educational_levels.id'))
     educational_form_id: Mapped[int] = mapped_column(Integer, ForeignKey('educational_forms.id'))
     semester_count: Mapped[int] = mapped_column(Integer, nullable=False)
