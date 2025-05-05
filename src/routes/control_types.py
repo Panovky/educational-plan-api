@@ -80,7 +80,7 @@ def delete_control_type(control_type_id: Annotated[int, Path(gt=0)], session: Se
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Control types successfully received'}},
     summary='Return a list of control types'
 )
@@ -91,7 +91,7 @@ def get_control_types(session: SessionDep) -> list[ControlTypeRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=ControlTypeRead,
     status_code=status.HTTP_201_CREATED,
     responses={

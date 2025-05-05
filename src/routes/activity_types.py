@@ -80,7 +80,7 @@ def delete_activity_type(activity_type_id: Annotated[int, Path(gt=0)], session: 
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Activity types successfully received'}},
     summary='Return a list of activity types'
 )
@@ -91,7 +91,7 @@ def get_activity_types(session: SessionDep) -> list[ActivityTypeRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=ActivityTypeRead,
     status_code=status.HTTP_201_CREATED,
     responses={

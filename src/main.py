@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes import (
     educational_levels, educational_forms, directions, activity_types, control_types, departments, disciplines,
-    competency_groups, competencies, indicators, map_cors, discipline_blocks, validations
+    competency_groups, competencies, indicators, map_cors, discipline_blocks, discipline_block_competencies,
+    direction_map_cors, validations
 )
 
 
@@ -26,6 +27,8 @@ app.include_router(disciplines.router)
 app.include_router(competency_groups.router)
 app.include_router(competencies.router)
 app.include_router(indicators.router)
+app.include_router(direction_map_cors.router)
 app.include_router(map_cors.router)
 app.include_router(discipline_blocks.router)
+app.include_router(discipline_block_competencies.router)
 app.include_router(validations.router)

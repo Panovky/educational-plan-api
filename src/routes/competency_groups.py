@@ -81,7 +81,7 @@ def delete_competency_group(competency_group_id: Annotated[int, Path(gt=0)], ses
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Competency groups successfully received'}},
     summary='Return a list of competency groups'
 )
@@ -92,7 +92,7 @@ def get_competency_groups(session: SessionDep) -> list[CompetencyGroupRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=CompetencyGroupRead,
     status_code=status.HTTP_201_CREATED,
     responses={

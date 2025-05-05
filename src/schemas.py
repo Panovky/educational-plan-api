@@ -158,6 +158,34 @@ class DisciplineRead(DisciplineCreate):
     id: Annotated[int, Field(example=1)]
 
 
+class DisciplineBlockCompetencyCreate(BaseModel):
+    discipline_block_id: Annotated[int, Field(example=1)]
+    competency_id: Annotated[int, Field(example=1)]
+
+
+class DisciplineBlockCompetencyUpdate(BaseModel):
+    discipline_block_id: Annotated[int | None, Field(example=1)]
+    competency_id: Annotated[int | None, Field(example=1)]
+
+
+class DisciplineBlockCompetencyRead(DisciplineBlockCompetencyCreate):
+    id: Annotated[int, Field(example=1)]
+
+
+class DirectionMapCoreCreate(BaseModel):
+    direction_id: Annotated[int, Field(example=1)]
+    map_core_id: Annotated[int, Field(example=1)]
+
+
+class DirectionMapCoreUpdate(BaseModel):
+    direction_id: Annotated[int | None, Field(example=1)]
+    map_core_id: Annotated[int | None, Field(example=1)]
+
+
+class DirectionMapCoreRead(DirectionMapCoreCreate):
+    id: Annotated[int, Field(example=1)]
+
+
 class IndicatorCreate(BaseModel):
     code: Annotated[str, Field(example='УК-1.1', max_length=10)]
     name: Annotated[str, Field(example='Знать: методики поиска, сбора и обработки информации; актуальные российские и '

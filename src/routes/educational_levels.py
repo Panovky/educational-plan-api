@@ -84,7 +84,7 @@ def delete_educational_level(educational_level_id: Annotated[int, Path(gt=0)], s
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Educational levels successfully received'}},
     summary='Return a list of educational levels'
 )
@@ -95,7 +95,7 @@ def get_educational_levels(session: SessionDep) -> list[EducationalLevelRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=EducationalLevelRead,
     status_code=status.HTTP_201_CREATED,
     responses={

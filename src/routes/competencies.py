@@ -84,7 +84,7 @@ def delete_competency(competency_id: Annotated[int, Path(gt=0)], session: Sessio
 
 
 @router.get(
-    '/',
+    '',
     responses={200: {'description': 'Competencies successfully received'}},
     summary='Return a list of competencies'
 )
@@ -95,7 +95,7 @@ def get_competencies(session: SessionDep) -> list[CompetencyRead]:
 
 
 @router.post(
-    '/',
+    '',
     response_model=CompetencyRead,
     status_code=status.HTTP_201_CREATED,
     responses={
