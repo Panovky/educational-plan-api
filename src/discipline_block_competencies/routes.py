@@ -6,7 +6,8 @@ from src.dependencies import SessionDep
 from src.exceptions import (
     DisciplineBlockCompetencyNotFoundException, DisciplineBlockNotFoundException, CompetencyNotFoundException
 )
-from src.models import DisciplineBlock, Competency, DisciplineBlockCompetency
+from src.models import Competency, DisciplineBlockCompetency
+from src.discipline_blocks.model import DisciplineBlock
 from .schemas import DisciplineBlockCompetencyCreate, DisciplineBlockCompetencyUpdate, DisciplineBlockCompetencyRead
 
 router = APIRouter(
