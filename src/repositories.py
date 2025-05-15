@@ -1,8 +1,9 @@
 from sqlalchemy.orm import Session
 from src.core.sqlalchemy_repository import SQLAlchemyRepository
 from src.models import (
-    ActivityType, Competency, CompetencyGroup, ControlType, Department, DisciplineBlock, Discipline, Indicator
+    ActivityType, Competency, CompetencyGroup, ControlType, Department, Discipline, Indicator
 )
+
 
 
 class ActivityTypesRepository(SQLAlchemyRepository):
@@ -28,11 +29,6 @@ class ControlTypesRepository(SQLAlchemyRepository):
 class DepartmentsRepository(SQLAlchemyRepository):
     def __init__(self, session: Session):
         super().__init__(session, Department)
-
-
-class DisciplineBlocksRepository(SQLAlchemyRepository):
-    def __init__(self, session: Session):
-        super().__init__(session, DisciplineBlock)
 
 
 class DisciplinesRepository(SQLAlchemyRepository):
