@@ -4,7 +4,7 @@ from sqlalchemy import select, exists, and_
 from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import ControlTypeNotFoundException, ControlTypeNameIsNotUniqueException
-from src.models import ControlType
+from .model import ControlType
 from .schemas import ControlTypeCreate, ControlTypeUpdate, ControlTypeRead
 
 router = APIRouter(

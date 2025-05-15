@@ -6,14 +6,6 @@ class Base(DeclarativeBase):
     pass
 
 
-class ControlType(Base):
-    """Виды контроля дисциплин (зачет, экзамен, дифференцированный зачет)."""
-    __tablename__ = 'control_types'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
-
-
 class EducationalLevel(Base):
     """Уровни образования (бакалавриат, магистратура, аспирантура, специалитет)."""
     __tablename__ = 'educational_levels'

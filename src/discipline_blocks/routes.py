@@ -7,7 +7,7 @@ from src.exceptions import (
     DisciplineBlockNotFoundException, DisciplineNotFoundException, ControlTypeNotFoundException,
     MapCoreNotFoundException
 )
-from src.models import ControlType
+from src.control_types.model import ControlType
 from src.disciplines.model import Discipline
 from .model import DisciplineBlock
 from src.map_cors.model import MapCore
