@@ -7,6 +7,10 @@ from src.map_cors.repository import MapCorsRepository
 from src.direction_map_cors.repository import DirectionMapCorsRepository
 from src.discipline_blocks.repository import DisciplineBlocksRepository
 from src.discipline_block_competencies.repository import DisciplineBlockCompetenciesRepository
+from src.disciplines.repository import DisciplinesRepository
+from src.departments.repository import DepartmentsRepository
+from src.control_types.repository import ControlTypesRepository
+from src.competencies.repository import CompetenciesRepository
 from src.maps.service import MapsService
 
 
@@ -55,12 +59,44 @@ DisciplineBlockCompetenciesRepositoryDep = Annotated[
 ]
 
 
+def get_disciplines_repository(session: SessionDep) -> DisciplinesRepository:
+    return DisciplinesRepository(session)
+
+
+DisciplinesRepositoryDep = Annotated[DisciplinesRepository, Depends(get_disciplines_repository)]
+
+
+def get_departments_repository(session: SessionDep) -> DepartmentsRepository:
+    return DepartmentsRepository(session)
+
+
+DepartmentsRepositoryDep = Annotated[DepartmentsRepository, Depends(get_departments_repository)]
+
+
+def get_control_types_repository(session: SessionDep) -> ControlTypesRepository:
+    return ControlTypesRepository(session)
+
+
+ControlTypesRepositoryDep = Annotated[ControlTypesRepository, Depends(get_control_types_repository)]
+
+
+def get_competencies_repository(session: SessionDep) -> CompetenciesRepository:
+    return CompetenciesRepository(session)
+
+
+CompetenciesRepositoryDep = Annotated[CompetenciesRepository, Depends(get_competencies_repository)]
+
+
 def get_maps_service(
         directions_repository: DirectionsRepositoryDep,
         map_cors_repository: MapCorsRepositoryDep,
         direction_map_cors_repository: DirectionMapCorsRepositoryDep,
         discipline_blocks_repository: DisciplineBlocksRepositoryDep,
         discipline_block_competencies_repository: DisciplineBlockCompetenciesRepositoryDep,
+        disciplines_repository: DisciplinesRepositoryDep,
+        departments_repository: DepartmentsRepositoryDep,
+        control_types_repository: ControlTypesRepositoryDep,
+        competencies_repository: CompetenciesRepositoryDep
 ) -> MapsService:
     return MapsService(
         directions_repository,
@@ -68,6 +104,10 @@ def get_maps_service(
         direction_map_cors_repository,
         discipline_blocks_repository,
         discipline_block_competencies_repository,
+        disciplines_repository,
+        departments_repository,
+        control_types_repository,
+        competencies_repository
     )
 
 

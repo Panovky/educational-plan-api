@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Annotated
 
 
@@ -29,12 +29,6 @@ class MapLoad(BaseModel):
     map_cors: list[MapCoreLoad]
 
 
-class DepartmentUnload(BaseModel):
-    id: Annotated[int, Field(example=1)]
-    name: Annotated[str, Field(example='Информационные системы и технологии')]
-    short_name: Annotated[str, Field(example='ИСТ')]
-
-
 class CompetencyUnload(BaseModel):
     id: Annotated[int, Field(example=1)]
     code: Annotated[str, Field(example='УК-3')]
@@ -45,16 +39,26 @@ class CompetencyUnload(BaseModel):
     competency_group_id: Annotated[int, Field(example=1)]
 
 
+class ControlTypeUnload(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: Annotated[int, Field(example=1)]
+    name: Annotated[str, Field(example='Дифференцированный зачет')]
+
+
+class DepartmentUnload(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: Annotated[int, Field(example=1)]
+    name: Annotated[str, Field(example='Информационные системы и технологии')]
+    short_name: Annotated[str, Field(example='ИСТ')]
+
+
 class DisciplineUnload(BaseModel):
     id: Annotated[int, Field(example=1)]
     name: Annotated[str, Field(example='Проектный практикум')]
     short_name: Annotated[str, Field(example='ПП')]
     department: DepartmentUnload
-
-
-class ControlTypeUnload(BaseModel):
-    id: Annotated[int, Field(example=1)]
-    name: Annotated[str, Field(example='Дифференцированный зачет')]
 
 
 class DisciplineBlockUnload(BaseModel):
