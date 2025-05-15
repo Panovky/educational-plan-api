@@ -5,7 +5,8 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import (
     CompetencyNotFoundException, CompetencyCodeIsNotUniqueException, CompetencyGroupNotFoundException)
-from src.models import Competency, CompetencyGroup
+from src.models import CompetencyGroup
+from .model import Competency
 from .schemas import CompetencyCreate, CompetencyUpdate, CompetencyRead
 
 router = APIRouter(

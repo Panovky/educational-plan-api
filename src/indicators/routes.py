@@ -5,7 +5,8 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import (
     IndicatorNotFoundException, IndicatorCodeIsNotUniqueException, CompetencyNotFoundException)
-from src.models import Indicator, Competency
+from src.models import Indicator
+from src.competencies.model import Competency
 from .schemas import IndicatorCreate, IndicatorUpdate, IndicatorRead
 
 router = APIRouter(

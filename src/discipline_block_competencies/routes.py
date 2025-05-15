@@ -6,7 +6,7 @@ from src.dependencies import SessionDep
 from src.exceptions import (
     DisciplineBlockCompetencyNotFoundException, DisciplineBlockNotFoundException, CompetencyNotFoundException
 )
-from src.models import Competency
+from src.competencies.model import Competency
 from .model import DisciplineBlockCompetency
 from src.discipline_blocks.model import DisciplineBlock
 from .schemas import DisciplineBlockCompetencyCreate, DisciplineBlockCompetencyUpdate, DisciplineBlockCompetencyRead
