@@ -6,7 +6,8 @@ from src.dependencies import SessionDep
 from src.exceptions import (
     DirectionNotFoundException, EducationalLevelNotFoundException, EducationalFormNotFoundException
 )
-from src.models import Direction, EducationalLevel, EducationalForm
+from src.models import EducationalLevel, EducationalForm
+from .model import Direction
 from .schemas import DirectionCreate, DirectionUpdate, DirectionRead
 
 router = APIRouter(

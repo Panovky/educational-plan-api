@@ -52,17 +52,6 @@ class EducationalForm(Base):
     name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
 
 
-class Direction(Base):
-    """Направления подготовки."""
-    __tablename__ = 'directions'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(50), nullable=False)
-    educational_level_id: Mapped[int] = mapped_column(Integer, ForeignKey('educational_levels.id'))
-    educational_form_id: Mapped[int] = mapped_column(Integer, ForeignKey('educational_forms.id'))
-    semester_count: Mapped[int] = mapped_column(Integer, nullable=False)
-
-
 class MapCore(Base):
     """Ядра карты."""
     __tablename__ = 'map_cors'
