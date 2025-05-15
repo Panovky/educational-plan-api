@@ -4,7 +4,7 @@ from sqlalchemy import select, exists, and_
 from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import EducationalFormNotFoundException, EducationalFormNameIsNotUniqueException
-from src.models import EducationalForm
+from .model import EducationalForm
 from .schemas import EducationalFormCreate, EducationalFormUpdate, EducationalFormRead
 
 router = APIRouter(

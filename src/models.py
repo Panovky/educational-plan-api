@@ -1,25 +1,9 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Integer, String, ForeignKey
+from sqlalchemy import Integer, ForeignKey
 
 
 class Base(DeclarativeBase):
     pass
-
-
-class EducationalLevel(Base):
-    """Уровни образования (бакалавриат, магистратура, аспирантура, специалитет)."""
-    __tablename__ = 'educational_levels'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
-
-
-class EducationalForm(Base):
-    """Формы образования (очная, заочная, очно-заочная)."""
-    __tablename__ = 'educational_forms'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
 
 
 class DisciplineBlockActivityType(Base):

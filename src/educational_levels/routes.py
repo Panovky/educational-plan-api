@@ -4,7 +4,7 @@ from sqlalchemy import select, exists, and_
 from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import EducationalLevelNotFoundException, EducationalLevelNameIsNotUniqueException
-from src.models import EducationalLevel
+from .model import EducationalLevel
 from .schemas import EducationalLevelCreate, EducationalLevelUpdate, EducationalLevelRead
 
 router = APIRouter(
