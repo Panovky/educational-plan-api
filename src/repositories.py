@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from src.core.sqlalchemy_repository import SQLAlchemyRepository
-from src.models import CompetencyGroup, ControlType, Indicator
+from src.models import ControlType, Indicator
+from src.competency_groups.model import CompetencyGroup
 from src.competencies.model import Competency
 from src.activity_types.model import ActivityType
 from src.departments.model import Department

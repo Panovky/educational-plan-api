@@ -30,16 +30,6 @@ class EducationalForm(Base):
     name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
 
 
-class CompetencyGroup(Base):
-    """Группы компетенций."""
-    __tablename__ = 'competency_groups'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
-
-    competencies = relationship('Competency', back_populates='competency_group', cascade='all, delete-orphan')
-
-
 class Indicator(Base):
     """Индикаторы достижения компетенций."""
     __tablename__ = 'indicators'

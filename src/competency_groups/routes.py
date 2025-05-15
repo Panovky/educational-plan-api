@@ -4,7 +4,7 @@ from sqlalchemy import select, exists, and_
 from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import CompetencyGroupNotFoundException, CompetencyGroupNameIsNotUniqueException
-from src.models import CompetencyGroup
+from .model import CompetencyGroup
 from .schemas import CompetencyGroupCreate, CompetencyGroupUpdate, CompetencyGroupRead
 
 router = APIRouter(
