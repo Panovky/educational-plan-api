@@ -7,7 +7,8 @@ from src.exceptions import (
     DisciplineNotFoundException, DisciplineNameIsNotUniqueException, DisciplineShortNameIsNotUniqueException,
     DepartmentNotFoundException
 )
-from src.models import Discipline, Department
+from src.departments.model import Department
+from .model import Discipline
 from .schemas import DisciplineCreate, DisciplineUpdate, DisciplineRead
 
 router = APIRouter(

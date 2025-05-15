@@ -1,9 +1,8 @@
 from sqlalchemy.orm import Session
 from src.core.sqlalchemy_repository import SQLAlchemyRepository
-from src.models import (
-    ActivityType, Competency, CompetencyGroup, ControlType, Department, Discipline, Indicator
-)
-
+from src.models import ActivityType, Competency, CompetencyGroup, ControlType, Indicator
+from src.departments.model import Department
+from src.disciplines.model import Discipline
 
 
 class ActivityTypesRepository(SQLAlchemyRepository):

@@ -6,7 +6,7 @@ from src.dependencies import SessionDep
 from src.exceptions import (
     DepartmentNotFoundException, DepartmentNameIsNotUniqueException, DepartmentShortNameIsNotUniqueException
 )
-from src.models import Department
+from .model import Department
 from .schemas import DepartmentCreate, DepartmentUpdate, DepartmentRead
 
 router = APIRouter(
