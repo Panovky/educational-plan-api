@@ -5,7 +5,7 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import MapCoreNotFoundException
 from src.models import MapCore
-from src.schemas import MapCoreRead, MapCoreCreate, MapCoreUpdate
+from .schemas import MapCoreCreate, MapCoreUpdate, MapCoreRead
 
 router = APIRouter(
     prefix='/map-cors',

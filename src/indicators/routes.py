@@ -6,7 +6,7 @@ from src.dependencies import SessionDep
 from src.exceptions import (
     IndicatorNotFoundException, IndicatorCodeIsNotUniqueException, CompetencyNotFoundException)
 from src.models import Indicator, Competency
-from src.schemas import IndicatorCreate, IndicatorUpdate, IndicatorRead
+from .schemas import IndicatorCreate, IndicatorUpdate, IndicatorRead
 
 router = APIRouter(
     prefix='/indicators',

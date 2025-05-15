@@ -7,7 +7,7 @@ from src.exceptions import (
     DepartmentNotFoundException, DepartmentNameIsNotUniqueException, DepartmentShortNameIsNotUniqueException
 )
 from src.models import Department
-from src.schemas import DepartmentCreate, DepartmentUpdate, DepartmentRead
+from .schemas import DepartmentCreate, DepartmentUpdate, DepartmentRead
 
 router = APIRouter(
     prefix='/departments',

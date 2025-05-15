@@ -7,7 +7,7 @@ from src.exceptions import (
     DisciplineBlockCompetencyNotFoundException, DisciplineBlockNotFoundException, CompetencyNotFoundException
 )
 from src.models import DisciplineBlock, Competency, DisciplineBlockCompetency
-from src.schemas import DisciplineBlockCompetencyCreate, DisciplineBlockCompetencyUpdate, DisciplineBlockCompetencyRead
+from .schemas import DisciplineBlockCompetencyCreate, DisciplineBlockCompetencyUpdate, DisciplineBlockCompetencyRead
 
 router = APIRouter(
     prefix='/discipline-block-competencies',

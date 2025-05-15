@@ -5,7 +5,7 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import EducationalLevelNotFoundException, EducationalLevelNameIsNotUniqueException
 from src.models import EducationalLevel
-from src.schemas import EducationalLevelRead, EducationalLevelCreate, EducationalLevelUpdate
+from .schemas import EducationalLevelCreate, EducationalLevelUpdate, EducationalLevelRead
 
 router = APIRouter(
     prefix='/educational-levels',

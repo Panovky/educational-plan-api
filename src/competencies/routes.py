@@ -6,7 +6,7 @@ from src.dependencies import SessionDep
 from src.exceptions import (
     CompetencyNotFoundException, CompetencyCodeIsNotUniqueException, CompetencyGroupNotFoundException)
 from src.models import Competency, CompetencyGroup
-from src.schemas import CompetencyCreate, CompetencyUpdate, CompetencyRead
+from .schemas import CompetencyCreate, CompetencyUpdate, CompetencyRead
 
 router = APIRouter(
     prefix='/competencies',

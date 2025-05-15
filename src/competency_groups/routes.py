@@ -5,7 +5,7 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import CompetencyGroupNotFoundException, CompetencyGroupNameIsNotUniqueException
 from src.models import CompetencyGroup
-from src.schemas import CompetencyGroupCreate, CompetencyGroupUpdate, CompetencyGroupRead
+from .schemas import CompetencyGroupCreate, CompetencyGroupUpdate, CompetencyGroupRead
 
 router = APIRouter(
     prefix='/competency-groups',

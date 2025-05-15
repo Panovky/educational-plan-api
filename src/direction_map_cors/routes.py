@@ -5,7 +5,7 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import DirectionMapCoreNotFoundException, DirectionNotFoundException, MapCoreNotFoundException
 from src.models import Direction, MapCore, DirectionMapCore
-from src.schemas import DirectionMapCoreCreate, DirectionMapCoreUpdate, DirectionMapCoreRead
+from .schemas import DirectionMapCoreCreate, DirectionMapCoreUpdate, DirectionMapCoreRead
 
 router = APIRouter(
     prefix='/direction-map-cors',

@@ -7,7 +7,7 @@ from src.exceptions import (
     DirectionNotFoundException, EducationalLevelNotFoundException, EducationalFormNotFoundException
 )
 from src.models import Direction, EducationalLevel, EducationalForm
-from src.schemas import DirectionCreate, DirectionUpdate, DirectionRead
+from .schemas import DirectionCreate, DirectionUpdate, DirectionRead
 
 router = APIRouter(
     prefix='/directions',

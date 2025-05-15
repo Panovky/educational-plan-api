@@ -5,7 +5,7 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import EducationalFormNotFoundException, EducationalFormNameIsNotUniqueException
 from src.models import EducationalForm
-from src.schemas import EducationalFormRead, EducationalFormCreate, EducationalFormUpdate
+from .schemas import EducationalFormCreate, EducationalFormUpdate, EducationalFormRead
 
 router = APIRouter(
     prefix='/educational-forms',

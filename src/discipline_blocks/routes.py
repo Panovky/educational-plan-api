@@ -8,7 +8,7 @@ from src.exceptions import (
     MapCoreNotFoundException
 )
 from src.models import DisciplineBlock, Discipline, ControlType, MapCore
-from src.schemas import DisciplineBlockCreate, DisciplineBlockUpdate, DisciplineBlockRead
+from .schemas import DisciplineBlockCreate, DisciplineBlockUpdate, DisciplineBlockRead
 
 router = APIRouter(
     prefix='/discipline-blocks',

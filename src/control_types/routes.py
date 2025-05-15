@@ -5,7 +5,7 @@ from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import ControlTypeNotFoundException, ControlTypeNameIsNotUniqueException
 from src.models import ControlType
-from src.schemas import ControlTypeCreate, ControlTypeUpdate, ControlTypeRead
+from .schemas import ControlTypeCreate, ControlTypeUpdate, ControlTypeRead
 
 router = APIRouter(
     prefix='/control-types',
