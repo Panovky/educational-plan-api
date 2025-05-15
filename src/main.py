@@ -15,6 +15,7 @@ from src.indicators.routes import router as indicators_router
 from src.discipline_blocks.routes import router as discipline_blocks_router
 from src.discipline_block_competencies.routes import router as discipline_block_competencies_router
 from src.validations.routes import router as validations_router
+from src.maps.routes import router as maps_router
 
 app = FastAPI()
 
@@ -41,3 +42,4 @@ app.include_router(indicators_router)
 app.include_router(discipline_blocks_router)
 app.include_router(discipline_block_competencies_router)
 app.include_router(validations_router)
+app.include_router(maps_router)
