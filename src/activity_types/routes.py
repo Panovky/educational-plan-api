@@ -4,7 +4,7 @@ from sqlalchemy import select, exists, and_
 from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import ActivityTypeNotFoundException, ActivityTypeNameIsNotUniqueException
-from src.models import ActivityType
+from .model import ActivityType
 from .schemas import ActivityTypeCreate, ActivityTypeUpdate, ActivityTypeRead
 
 router = APIRouter(

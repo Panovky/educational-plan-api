@@ -66,14 +66,6 @@ class Indicator(Base):
     competency = relationship('Competency', back_populates='indicators')
 
 
-class ActivityType(Base):
-    """Виды учебных занятий (практические занятия, лекции, лабораторные работы)."""
-    __tablename__ = 'activity_types'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
-
-
 class DisciplineBlockActivityType(Base):
     """Связи блоков дисциплин и видов учебных занятий."""
     __tablename__ = 'discipline_block_activity_types'
