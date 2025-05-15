@@ -4,7 +4,7 @@ from sqlalchemy import select
 from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import MapCoreNotFoundException
-from src.models import MapCore
+from .model import MapCore
 from .schemas import MapCoreCreate, MapCoreUpdate, MapCoreRead
 
 router = APIRouter(

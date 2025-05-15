@@ -52,15 +52,6 @@ class EducationalForm(Base):
     name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
 
 
-class MapCore(Base):
-    """Ядра карты."""
-    __tablename__ = 'map_cors'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(50), nullable=False)
-    semesters_count: Mapped[int] = mapped_column(Integer, nullable=False)
-
-
 class CompetencyGroup(Base):
     """Группы компетенций."""
     __tablename__ = 'competency_groups'

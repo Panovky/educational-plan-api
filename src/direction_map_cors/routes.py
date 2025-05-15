@@ -4,7 +4,8 @@ from sqlalchemy import select
 from typing import Annotated, Any
 from src.dependencies import SessionDep
 from src.exceptions import DirectionMapCoreNotFoundException, DirectionNotFoundException, MapCoreNotFoundException
-from src.models import MapCore, DirectionMapCore
+from src.models import DirectionMapCore
+from src.map_cors.model import MapCore
 from src.directions.model import Direction
 from .schemas import DirectionMapCoreCreate, DirectionMapCoreUpdate, DirectionMapCoreRead
 

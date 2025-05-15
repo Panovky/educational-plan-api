@@ -7,7 +7,8 @@ from src.exceptions import (
     DisciplineBlockNotFoundException, DisciplineNotFoundException, ControlTypeNotFoundException,
     MapCoreNotFoundException
 )
-from src.models import DisciplineBlock, Discipline, ControlType, MapCore
+from src.models import DisciplineBlock, Discipline, ControlType
+from src.map_cors.model import MapCore
 from .schemas import DisciplineBlockCreate, DisciplineBlockUpdate, DisciplineBlockRead
 
 router = APIRouter(
