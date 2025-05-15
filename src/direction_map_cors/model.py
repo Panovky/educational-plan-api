@@ -1,7 +1,7 @@
 from sqlalchemy import Integer, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
-from src.models import Base
+from src.core.base_model import Base
 
 
 class DirectionMapCore(Base):
