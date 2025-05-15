@@ -103,12 +103,3 @@ class DisciplineBlockActivityType(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
     activity_type_id: Mapped[int] = mapped_column(Integer, ForeignKey('activity_types.id'))
-
-
-class DisciplineBlockCompetency(Base):
-    """Связи блоков дисциплин и компетенций."""
-    __tablename__ = 'discipline_block_competencies'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    discipline_block_id: Mapped[int] = mapped_column(Integer, ForeignKey('discipline_blocks.id'))
-    competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
