@@ -1,4 +1,4 @@
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, ForeignKey
 
 
@@ -20,18 +20,6 @@ class EducationalForm(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
-
-
-class Indicator(Base):
-    """Индикаторы достижения компетенций."""
-    __tablename__ = 'indicators'
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    code: Mapped[str] = mapped_column(String(10), nullable=False, unique=True)
-    name: Mapped[str] = mapped_column(String(255), nullable=False)
-    competency_id: Mapped[int] = mapped_column(Integer, ForeignKey('competencies.id'))
-
-    competency = relationship('Competency', back_populates='indicators')
 
 
 class DisciplineBlockActivityType(Base):
