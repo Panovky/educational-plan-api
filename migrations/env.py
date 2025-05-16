@@ -3,8 +3,23 @@ from alembic import context
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from src.models import Base
 
+from src.core.base_model import Base
+from src.activity_types.model import ActivityType
+from src.competencies.model import Competency
+from src.competency_groups.model import CompetencyGroup
+from src.control_types.model import ControlType
+from src.departments.model import Department
+from src.direction_map_cors.model import DirectionMapCore
+from src.directions.model import Direction
+from src.discipline_block_activity_types.model import DisciplineBlockActivityType
+from src.discipline_block_competencies.model import DisciplineBlockCompetency
+from src.discipline_blocks.model import DisciplineBlock
+from src.disciplines.model import Discipline
+from src.educational_forms.model import EducationalForm
+from src.educational_levels.model import EducationalLevel
+from src.indicators.model import Indicator
+from src.map_cors.model import MapCore
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
