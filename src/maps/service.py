@@ -43,15 +43,41 @@ class MapsService:
         if not self.directions_repository.get_by_id(direction_id):
             raise DirectionNotFoundException()
 
-        for map_core in data.map_cors:
+        # если есть связанные с направлением ядра карты, удаляем связи, но ядра пока остаются в БД
+        if direction_map_cors := self.direction_map_cors_repository.filter_by(direction_id=direction_id):
+            for direction_map_core in direction_map_cors:
+                self.direction_map_cors_repository.delete(direction_map_core.id)
 
+        for map_core in data.map_cors:
             map_core_id = map_core.id
+
+            # если ядро существует, нужно пройтись его блокам дисциплин и удалить их
+            # прежде чем удалить блоки дисциплин, нужно удалить их связи с компетенциями
+
+            # получаем блоки дисциплин
+            discipline_blocks = self.discipline_blocks_repository.filter_by(map_core_id=map_core_id)
+            for discipline_block in discipline_blocks:
+
+                # получаем связи блоков с компетенциями
+                discipline_block_competencies = self.discipline_block_competencies_repository.filter_by(
+                    discipline_block_id=discipline_block.id
+                )
+
+                # удаляем связи блоков с компетенциями
+                for discipline_block_competency in discipline_block_competencies:
+                    self.discipline_block_competencies_repository.delete(discipline_block_competency.id)
+
+                # удаляем сам блок дисциплины
+                self.discipline_blocks_repository.delete(discipline_block.id)
+
+            # если ядро новое, просто создаем его в базе данных
             if not map_core_id:
                 map_core_id = self.map_cors_repository.create({
                     'name': map_core.name,
                     'semesters_count': map_core.semesters_count
                 }).id
 
+            # привязываем ядро к карте направления
             self.direction_map_cors_repository.create({
                 'direction_id': direction_id,
                 'map_core_id': map_core_id
