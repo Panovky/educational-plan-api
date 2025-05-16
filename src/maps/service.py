@@ -95,10 +95,10 @@ class MapsService:
             for discipline_block in discipline_blocks:
 
                 # получаем дисциплину блока
-                discipline = self.disciplines_repository.get_by_id(id=discipline_block.discipline_id)
+                discipline = self.disciplines_repository.get_by_id(discipline_block.discipline_id)
 
                 # получаем кафедру дисциплины
-                department = self.departments_repository.get_by_id(id=discipline.department_id)
+                department = self.departments_repository.get_by_id(discipline.department_id)
 
                 # получаем объект кафедры для выгрузки
                 department_unload = DepartmentUnload.model_validate(department)
@@ -112,7 +112,7 @@ class MapsService:
                 )
 
                 # получаем вид контроля для блока дисциплины
-                control_type = self.control_types_repository.get_by_id(id=discipline_block.control_type_id)
+                control_type = self.control_types_repository.get_by_id(discipline_block.control_type_id)
 
                 # получаем вид контроля для выгрузки
                 control_type_unload = ControlTypeUnload.model_validate(control_type)
