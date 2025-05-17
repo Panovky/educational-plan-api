@@ -18,7 +18,7 @@ class Discipline(BaseModel):
     hasCourseWork: bool
     hasPracticalWork: bool
     department: str
-    competenceCodes: List[str]
+    competenceCodes: List[int]
     lectureHours: int
     labHours: int
     practicalHours: int
